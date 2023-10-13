@@ -23,6 +23,7 @@ This document provides an overview of the APIs available in this project. Below,
   - `name` (string, required): User's name.
   - `email` (string, required): User's email.
   - `password` (string, required): User's password.
+  - `country` (string, required): User's country.
 - **Response**: JSON response with user information and access token.
 
 ### User Login
