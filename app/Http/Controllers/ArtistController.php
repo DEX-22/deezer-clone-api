@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-
+use App\Traits\DeezerErrorHandlingTrait;
  
 class ArtistController extends Controller
 {
+    use DeezerErrorHandlingTrait;
+
     private $base_url = "https://api.deezer.com/artist";
     
     /**
@@ -34,8 +36,13 @@ class ArtistController extends Controller
         if(!isset($id))
             return response()->json('You have to send id of artist to continue',400);
 
+       try {
         $res = Http::withToken(env('DEEZER_API_KEY'))->get("{$this->base_url}/{$id}");
-        $res = json_decode($res);
-        return response()->json($res,200);
+        // 
+        return $this->response($res);
+       } catch (\Throwable $th) {
+        // dd($th->getMessage());
+        return response()->json($th->getMessage(),404);
+       }
     }
 }

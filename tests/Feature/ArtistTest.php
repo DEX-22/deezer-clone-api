@@ -4,21 +4,38 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
+use App\Traits\DeezerErrorHandlingTrait;
 
 class ArtistTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_endpoint_is_available()
+    use DeezerErrorHandlingTrait;
+
+    public function test_get_artist_by_id_success()
     {
-        // $id = 1;
+        $artistId =  99998;
+        [$user,$token ] = $this->getUser();
+        $response = $this->withTokenHeader($token)->get('/api/artist/' . $artistId);
 
-        // $response = $this->get("api/artist/{$id}");
+         $response->assertStatus(200); 
+    }
 
-        // $response->assertStatus(200);
-    } 
+    public function test_get_artist_by_id_failure()
+    {
+         $artistId = 9999999;
+        [$user,$token ] = $this->getUser();
+         $response = $this->withTokenHeader($token)->get('/api/artist/' . $artistId);
+
+         $response->assertStatus(404);
+    }
+
+    public function test_get_artist_by_id_missing_id()
+    {
+        // Make a GET request to the getArtistById endpoint without providing an artist ID
+        $response = $this->get('/api/artist/');
+
+        // Assert that the response status code is 400 (Bad Request)
+        $response->assertStatus(404);
+    }
 }

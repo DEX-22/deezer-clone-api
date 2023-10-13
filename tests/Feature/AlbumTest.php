@@ -8,10 +8,13 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Tests\TestCase;
+use App\Traits\DeezerErrorHandlingTrait;
 
 class AlbumTest extends TestCase
 {
+
     // use RefreshDatabase;
+    use DeezerErrorHandlingTrait;
 
     public function test_get_album_by_id_success()
     { 
@@ -25,8 +28,7 @@ class AlbumTest extends TestCase
     public function test_get_album_by_id_not_valid()
     {
         [$user,$token ] = $this->getUser();
-        $response = $this->withTokenHeader($token)->get('/api/album/aaa');
-        Log::info(var_export($response->json(),true));
+        $response = $this->withTokenHeader($token)->get('/api/album/aaa'); 
 
         $response->assertStatus(400);
     }
@@ -44,20 +46,7 @@ class AlbumTest extends TestCase
 
         $response->assertStatus(404);
     }
-    private function getUser(){
-        $user = User::factory()->create()->first(); 
-
-        $token = $user->createToken('Bearer Token')->plainTextToken;
-         
-
-        return [ $user, $token];
-    }
-    private function withTokenHeader($token)
-    {
-        return $this->withHeaders([
-            'Authorization' => 'Bearer ' . $token,
-        ]);
-    }
+    
    
     
 }
