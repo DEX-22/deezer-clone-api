@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Traits\DeezerErrorHandlingTrait;
-
+use Illuminate\Support\Facades\Log;
 
 class AlbumController extends Controller
 {
@@ -36,14 +36,20 @@ class AlbumController extends Controller
 
         if(!$id)
             return response()->json('You have to send id of album to continue',400);
+        
+        if(!intval($id))
+            return response()->json('You have to send a valid id of album to continue. this should to be a integer',400);
+            
 
-        $res = Http::withToken(env('DEEZER_API_KEY'))->get("{$this->base_url}/{$id}");
-        $res = json_decode($res,true); 
-        // dd($res->get);
-        $res = isset($res->title)? $res->title : $res->error;
-        $status = isset($res->title)? 200 : 404;
- 
-        response()->json($res,$status);
+        try {
+            $res = Http::withToken(env('DEEZER_API_KEY'))->get("{$this->base_url}/{$id}");
+             
+            return $this->response($res); 
+         
+        } catch (\Throwable $th) {
+            return response()->json("Album not found",404);
+            
+        }
         
        
     }

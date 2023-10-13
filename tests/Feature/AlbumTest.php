@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Tests\TestCase;
 
 class AlbumTest extends TestCase
@@ -21,13 +22,19 @@ class AlbumTest extends TestCase
         $response->assertStatus(200) ;
     }
 
+    public function test_get_album_by_id_not_valid()
+    {
+        [$user,$token ] = $this->getUser();
+        $response = $this->withTokenHeader($token)->get('/api/album/aaa');
+        Log::info(var_export($response->json(),true));
+
+        $response->assertStatus(400);
+    }
     public function test_get_album_by_id_not_found()
     {
         [$user,$token ] = $this->getUser();
+        $response = $this->withTokenHeader($token)->get('/api/album/1212');
          
-        
-        $response = $this->withTokenHeader($token)->get('/api/album/aaa');
-
         $response->assertStatus(404);
     }
 
