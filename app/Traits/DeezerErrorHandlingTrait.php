@@ -1,9 +1,7 @@
 <?php
 
 namespace App\Traits;
-
-use App\Models\User;
-use Illuminate\Support\Facades\Log;
+ 
 
 trait DeezerErrorHandlingTrait
 {
@@ -12,8 +10,7 @@ trait DeezerErrorHandlingTrait
         "OAuthException" => 401,
         "MissingParameterException"=> 403,
         "DataException" => 404,
-        "Exception" =>500,
-        "NONE" => 0
+        "Exception" =>500
     );
     public function response($response){
 
@@ -22,7 +19,7 @@ trait DeezerErrorHandlingTrait
         if( isset($response->error)){
 
             $errorType = $response->error->type ;
-            $hasError = $this->DEZZER_API_ERRORS[$errorType] != -1;
+            $hasError = $this->DEZZER_API_ERRORS[$errorType];
         }
         
         if( !isset($hasError) )
@@ -32,19 +29,6 @@ trait DeezerErrorHandlingTrait
         
        
     }
-    public function getUser(){
-        $user = User::factory()->create()->first(); 
-
-        $token = $user->createToken('Bearer Token')->plainTextToken;
-         
-
-        return [ $user, $token];
-    }
-    public function withTokenHeader($token)
-    {
-        return $this->withHeaders([
-            'Authorization' => 'Bearer ' . $token,
-        ]);
-    }
+    
     
 }

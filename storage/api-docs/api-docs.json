@@ -28,6 +28,9 @@
                     "200": {
                         "description": "Album found"
                     },
+                    "400": {
+                        "description": "You have to send a valid id of album to continue. this should to be a integer"
+                    },
                     "404": {
                         "description": "Album not found"
                     },
@@ -58,6 +61,9 @@
                 "responses": {
                     "200": {
                         "description": "Artist found"
+                    },
+                    "400": {
+                        "description": "You have to send id of artist to continue"
                     },
                     "404": {
                         "description": "Artist not found"
@@ -196,8 +202,11 @@
                     "200": {
                         "description": "Search results found"
                     },
+                    "400": {
+                        "description": "Query is required"
+                    },
                     "500": {
-                        "description": "Server error"
+                        "description": "Failed to retrieve search results"
                     }
                 }
             }

@@ -2,15 +2,15 @@
 
 namespace Tests\Feature;
 
+use App\Traits\Helpers\TestHelperTrait  ;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Http;
-use Tests\TestCase;
-use App\Traits\DeezerErrorHandlingTrait;
+use Tests\TestCase; 
 
 class ArtistTest extends TestCase
 {
-    use DeezerErrorHandlingTrait;
+    use TestHelperTrait, RefreshDatabase;
 
     public function test_get_artist_by_id_success()
     {

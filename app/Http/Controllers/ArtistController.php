@@ -26,6 +26,7 @@ class ArtistController extends Controller
      *         @OA\Schema(type="integer")
      *     ),
      *     @OA\Response(response="200", description="Artist found"),
+     *     @OA\Response(response="400", description="You have to send id of artist to continue"),
      *     @OA\Response(response="404", description="Artist not found"),
      *     @OA\Response(response="500", description="Server error")
      * )

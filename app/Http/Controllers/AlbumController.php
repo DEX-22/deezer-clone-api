@@ -26,8 +26,9 @@ class AlbumController extends Controller
  *         required=true,
  *         @OA\Schema(type="integer")
  *     ),
- *     @OA\Response(response="200", description="Album found"),
- *     @OA\Response(response="404", description="Album not found"),
+ *     @OA\Response(response="200", description="Album found" ), 
+ *     @OA\Response(response="400", description="You have to send a valid id of album to continue. this should to be a integer"),
+ * *     @OA\Response(response="404", description="Album not found"),
  *     @OA\Response(response="500", description="Server error")
  * )
  */

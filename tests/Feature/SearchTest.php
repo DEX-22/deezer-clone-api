@@ -2,16 +2,31 @@
 
 namespace Tests\Feature;
 
+use App\Models\User; 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
+use App\Traits\Helpers\TestHelperTrait;
 
 class SearchTest extends TestCase
-{
-    public function test_endpoint_is_available()
-    { 
-        // $response = $this->get("api/seach",['params' => array('query' => 'eminem')]);
+{ 
+    use TestHelperTrait, RefreshDatabase;
 
-        // $response->assertStatus(200);
+    public function test_successful_search()
+    {   
+        [$user,$token] = $this->getUser();
+
+        $response = $this->withTokenHeader($token)->get('/api/search?query=example');
+        $response->assertStatus(200);
+    }
+ 
+    public function test_missing_query_parameter()
+    {
+        [$user,$token] = $this->getUser();
+
+        $response = $this->withTokenHeader($token)->get('/api/search');
+        $response->assertStatus(400)
+            ->assertJson(['error' => 'Query is required']);
     } 
 }

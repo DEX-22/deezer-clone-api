@@ -3,18 +3,16 @@
 namespace Tests\Feature;
 
 use App\Models\User;
+use App\Traits\Helpers\TestHelperTrait;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Tests\TestCase;
-use App\Traits\DeezerErrorHandlingTrait;
-
+use Tests\TestCase;  
 class AlbumTest extends TestCase
 {
-
-    // use RefreshDatabase;
-    use DeezerErrorHandlingTrait;
+ 
+    use TestHelperTrait, RefreshDatabase;
 
     public function test_get_album_by_id_success()
     { 
