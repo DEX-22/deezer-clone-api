@@ -16,7 +16,7 @@ This document provides an overview of the APIs available in this project. Below,
 ## Registration and Authentication
 
 ### Register User
-- **URL**: `/register`
+- **URL**: `/api/register`
 - **Method**: `POST`
 - **Description**: Register a new user.
 - **Request Parameters**:
@@ -27,7 +27,7 @@ This document provides an overview of the APIs available in this project. Below,
 - **Response**: JSON response with user information and access token.
 
 ### User Login
-- **URL**: `/login`
+- **URL**: `/api/login`
 - **Method**: `POST`
 - **Description**: Log in an existing user.
 - **Request Parameters**:
@@ -36,7 +36,7 @@ This document provides an overview of the APIs available in this project. Below,
 - **Response**: JSON response with user information and access token.
 
 ### User Logout
-- **URL**: `/logout`
+- **URL**: `/api/logout`
 - **Method**: `POST`
 - **Description**: Log out the authenticated user.
 - **Middleware**: Requires authentication (Bearer Token).
@@ -47,19 +47,19 @@ This document provides an overview of the APIs available in this project. Below,
 The following routes require authentication using Bearer Token.
 
 ### Get Album by ID
-- **URL**: `/album/{id}`
+- **URL**: `/api/album/{id}`
 - **Method**: `GET`
 - **Description**: Get information about an album by its ID.
 - **Response**: JSON response with album information.
 
 ### Get Artist by ID
-- **URL**: `/artist/{id}`
+- **URL**: `/api/artist/{id}`
 - **Method**: `GET`
 - **Description**: Get information about an artist by their ID.
 - **Response**: JSON response with artist information.
 
 ### Search
-- **URL**: `/search`
+- **URL**: `/api/search`
 - **Method**: `GET`
 - **Description**: Search for albums, artists, or other items.
 - **Request Parameters**:
